@@ -18,6 +18,7 @@ namespace BitmapToSqlite
             InitializeComponent();
         }
         OpenFileDialog fd1 = new OpenFileDialog();
+        OpenFileDialog fd2 = new OpenFileDialog();
         private void button1_Click(object sender, EventArgs e)
         {
             fd1.Filter = "image files|*.jpg;*.png;.*gif;*.icon;.*;";
@@ -36,6 +37,7 @@ namespace BitmapToSqlite
             f2.label6.Text = textBox1.Text.ToString();
             f2.label7.Text = textBox2.Text.ToString();
             f2.pictureBox1.Image = Image.FromFile(fd1.FileName);
+            f2.soundFileName = textBox5.Text;
             MemoryStream ms1 = new MemoryStream();
             f2.pictureBox1.Image.Save(ms1, System.Drawing.Imaging.ImageFormat.Jpeg);
             //MessageBox.Show(ms1.Length.ToString()); calculate image length
@@ -43,6 +45,17 @@ namespace BitmapToSqlite
                 MessageBox.Show("Please upload less than 25 kb image and less than 12 kb Signature");
             else
                 f2.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            fd2.Filter = "sound files|*.mp3;";
+            DialogResult dres2 = fd2.ShowDialog();
+            if (dres2 == DialogResult.Abort)
+                return;
+            if (dres2 == DialogResult.Cancel)
+                return;
+            textBox5.Text = fd2.FileName;
         }
     }
 }

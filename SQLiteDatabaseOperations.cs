@@ -54,6 +54,26 @@ namespace BitmapToSqlite
             }
 
         }
+        public int SaveSoundRecord(byte[] ba,string key)
+        {
+            try
+            {
+                string cs = @"URI=file:d:\hottots.db";
+                SQLiteConnection conn = new SQLiteConnection(cs);
+                conn.Open();
+                string sqlQuery = "insert into Sounds (sound,key)values(@s,@k)";
+                SQLiteCommand cmd = new SQLiteCommand(sqlQuery, conn);
+                cmd.Parameters.AddWithValue("@s", ba);
+                cmd.Parameters.AddWithValue("@k", key);
+                return cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return -1;
+            }
+
+        }
         public byte[] getImage()
         {
             try
@@ -81,6 +101,32 @@ namespace BitmapToSqlite
                 return null;
             }
         }
+        public byte[] getSound(string key)
+        {
+         try
+            {
+                string cs = @"URI=file:d:\hottots.db";
+                SQLiteConnection conn = new SQLiteConnection(cs);
+                conn.Open();
+                string sqlQuery = "SELECT sound FROM sounds where key = 'a' ";
+                SQLiteCommand cmd = new SQLiteCommand(sqlQuery, conn);
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                List<byte[]> records = new List<byte[]>();
+                while (reader.Read())
+                {
+                    byte[] soundArray = new byte[60000];
+                    reader.GetBytes(0, 0, soundArray, 0, 60000);
+                    records.Add(soundArray);
+                }
+                return records[0];
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+}
 
     }
 }

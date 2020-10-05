@@ -138,9 +138,9 @@
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(286, 275);
+            this.textBox5.Location = new System.Drawing.Point(275, 275);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(292, 26);
+            this.textBox5.Size = new System.Drawing.Size(303, 26);
             this.textBox5.TabIndex = 11;
             // 
             // button3
@@ -151,6 +151,7 @@
             this.button3.TabIndex = 12;
             this.button3.Text = "Browse";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Form1
             // 

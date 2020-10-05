@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,6 +15,8 @@ namespace BitmapToSqlite
     public partial class Form2 : Form
     {
         private byte[] img_arr1;
+        private byte[] snd_arr1;
+        public string soundFileName {get;set;}
         public Form2()
         {
             InitializeComponent();
@@ -21,12 +24,14 @@ namespace BitmapToSqlite
 
         private void  button1_Click(object sender, EventArgs e)
         {
-            getMsAsync();
+            getPictureArray();
+            getSoundArray();
             SQLiteDatabaseOperations sqliteDb = new SQLiteDatabaseOperations();
-            sqliteDb.SaveImageRecord(img_arr1);       
+            sqliteDb.SaveImageRecord(img_arr1);
+            sqliteDb.SaveSoundRecord(snd_arr1, "a");
             
         }
-        private void getMsAsync()
+        private void getPictureArray()
         {
             Image img = pictureBox1.Image ; // or use the PictureEdit.Image property
             using (MemoryStream ms = new MemoryStream())
@@ -40,10 +45,17 @@ namespace BitmapToSqlite
                 //return;
             }
             }
-
-        private void button3_Click(object sender, EventArgs e)
+        private void getSoundArray()
         {
-
+            using (MemoryStream ms = new MemoryStream())
+            using (FileStream file = new FileStream(soundFileName, FileMode.Open, FileAccess.Read))
+            {
+                byte[] bytes = new byte[file.Length];
+                file.Read(bytes, 0, (int)file.Length);
+                ms.Write(bytes, 0, (int)file.Length);
+                snd_arr1 = ms.ToArray();
+                
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -52,6 +64,13 @@ namespace BitmapToSqlite
             Form2 f2 = new Form2();
             f2.Hide();
             f3.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            WMPLib.WindowsMediaPlayer Player = new WMPLib.WindowsMediaPlayer();
+            Player.URL = soundFileName;
+            Player.controls.play();
         }
     }
 }
