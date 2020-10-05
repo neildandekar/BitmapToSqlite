@@ -29,5 +29,18 @@ namespace BitmapToSqlite
             System.Drawing.Image image = System.Drawing.Image.FromStream(ms1);
             pictureBox1.Image = image;
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SQLiteDatabaseOperations sdb = new SQLiteDatabaseOperations();
+            byte[] snd_arr1 = sdb.getSound("a");
+            using (FileStream file = new FileStream("d:\\temp.mp3", FileMode.Create, FileAccess.Write))
+            {
+                file.Write(snd_arr1, 0, snd_arr1.Length);
+            }
+            WMPLib.WindowsMediaPlayer Player = new WMPLib.WindowsMediaPlayer();
+            Player.URL = "d:\\temp.mp3";
+            Player.controls.play();
+        }
     }
 }
