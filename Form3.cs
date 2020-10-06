@@ -15,6 +15,7 @@ namespace BitmapToSqlite
 {
     public partial class Form3 : Form
     {
+        public string key { get; set; }
         public Form3()
         {
             InitializeComponent();
@@ -23,7 +24,7 @@ namespace BitmapToSqlite
         private void button1_Click(object sender, EventArgs e)
         {
             SQLiteDatabaseOperations sdb = new SQLiteDatabaseOperations();
-            byte[] img_arr1 = sdb.getImage();
+            byte[] img_arr1 = sdb.getImage(key);
             MemoryStream ms1 = new MemoryStream(img_arr1);
             ms1.Seek(0, SeekOrigin.Begin);
             System.Drawing.Image image = System.Drawing.Image.FromStream(ms1);
@@ -33,7 +34,7 @@ namespace BitmapToSqlite
         private void button2_Click(object sender, EventArgs e)
         {
             SQLiteDatabaseOperations sdb = new SQLiteDatabaseOperations();
-            byte[] snd_arr1 = sdb.getSound("a");
+            byte[] snd_arr1 = sdb.getSound(key);
             using (FileStream file = new FileStream("d:\\temp.mp3", FileMode.Create, FileAccess.Write))
             {
                 file.Write(snd_arr1, 0, snd_arr1.Length);

@@ -29,12 +29,8 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -53,28 +49,10 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Name";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(56, 117);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(96, 20);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Qualification";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(60, 169);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 20);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Age";
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(64, 222);
+            this.label4.Location = new System.Drawing.Point(55, 118);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(54, 20);
             this.label4.TabIndex = 3;
@@ -89,27 +67,9 @@
             this.label5.TabIndex = 4;
             this.label5.Text = "label5";
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(449, 116);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(51, 20);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "label6";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(453, 169);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(51, 20);
-            this.label7.TabIndex = 6;
-            this.label7.Text = "label7";
-            // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(218, 207);
+            this.pictureBox1.Location = new System.Drawing.Point(209, 103);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(157, 113);
             this.pictureBox1.TabIndex = 7;
@@ -147,7 +107,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(64, 344);
+            this.label9.Location = new System.Drawing.Point(55, 240);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(85, 20);
             this.label9.TabIndex = 11;
@@ -155,7 +115,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(218, 340);
+            this.button3.Location = new System.Drawing.Point(209, 236);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 34);
             this.button3.TabIndex = 12;
@@ -174,15 +134,12 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "Form2";
             this.Text = "Form2";
+            this.Load += new System.EventHandler(this.Form2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -192,12 +149,8 @@
         #endregion
 
         public  System.Windows.Forms.Label label1;
-        public System.Windows.Forms.Label label2;
-        public System.Windows.Forms.Label label3;
         public System.Windows.Forms.Label label4;
         public System.Windows.Forms.Label label5;
-        public System.Windows.Forms.Label label6;
-        public System.Windows.Forms.Label label7;
         public System.Windows.Forms.PictureBox pictureBox1;
         public System.Windows.Forms.Button button1;
         public System.Windows.Forms.Button button2;

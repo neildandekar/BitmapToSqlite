@@ -16,6 +16,7 @@ namespace BitmapToSqlite
     {
         private byte[] img_arr1;
         private byte[] snd_arr1;
+        public string key { get; set; }
         public string soundFileName {get;set;}
         public Form2()
         {
@@ -27,8 +28,8 @@ namespace BitmapToSqlite
             getPictureArray();
             getSoundArray();
             SQLiteDatabaseOperations sqliteDb = new SQLiteDatabaseOperations();
-            sqliteDb.SaveImageRecord(img_arr1);
-            sqliteDb.SaveSoundRecord(snd_arr1, "a");
+            sqliteDb.SaveImageRecord(img_arr1, key);
+            sqliteDb.SaveSoundRecord(snd_arr1, key);
             
         }
         private void getPictureArray()
@@ -38,13 +39,8 @@ namespace BitmapToSqlite
             {
                 img.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                 img_arr1 = ms.ToArray();
-                //MemoryStream ms1 = new MemoryStream();
-                //pictureBox1.Image.Save(ms1, System.Drawing.Imaging.ImageFormat.Png);
-                //img_arr1 = new byte[ms1.Length];
-                //int i = await  ms1.ReadAsync(img_arr1, 0, img_arr1.Length);
-                //return;
             }
-            }
+         }
         private void getSoundArray()
         {
             using (MemoryStream ms = new MemoryStream())
@@ -61,6 +57,7 @@ namespace BitmapToSqlite
         private void button2_Click(object sender, EventArgs e)
         {
             Form3 f3 = new Form3();
+            f3.key = this.key;
             Form2 f2 = new Form2();
             f2.Hide();
             f3.Show();
@@ -71,6 +68,11 @@ namespace BitmapToSqlite
             WMPLib.WindowsMediaPlayer Player = new WMPLib.WindowsMediaPlayer();
             Player.URL = soundFileName;
             Player.controls.play();
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

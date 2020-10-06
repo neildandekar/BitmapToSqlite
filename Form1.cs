@@ -34,10 +34,9 @@ namespace BitmapToSqlite
         {
             Form2 f2 = new Form2();
             this.Hide();
-            f2.label6.Text = textBox1.Text.ToString();
-            f2.label7.Text = textBox2.Text.ToString();
             f2.pictureBox1.Image = Image.FromFile(fd1.FileName);
             f2.soundFileName = textBox5.Text;
+            f2.key = textBox1.Text;
             MemoryStream ms1 = new MemoryStream();
             f2.pictureBox1.Image.Save(ms1, System.Drawing.Imaging.ImageFormat.Jpeg);
             //MessageBox.Show(ms1.Length.ToString()); calculate image length
@@ -48,6 +47,17 @@ namespace BitmapToSqlite
         }
 
         private void button3_Click(object sender, EventArgs e)
+        {
+            fd2.Filter = "sound files|*.mp3;";
+            DialogResult dres2 = fd2.ShowDialog();
+            if (dres2 == DialogResult.Abort)
+                return;
+            if (dres2 == DialogResult.Cancel)
+                return;
+            textBox5.Text = fd2.FileName;
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
         {
             fd2.Filter = "sound files|*.mp3;";
             DialogResult dres2 = fd2.ShowDialog();

@@ -33,17 +33,15 @@ namespace BitmapToSqlite
                 Console.WriteLine(e.Message);
             }
         }
-        public int SaveImageRecord(byte[] ba)
+        public int SaveImageRecord(byte[] ba, string name)
         {
             try { 
             string cs = @"URI=file:d:\hottots.db";
             SQLiteConnection conn = new SQLiteConnection(cs);
             conn.Open();
-            string sqlQuery = "insert into Images (name,qualification,age,image)values(@a,@b,@c,@d)";
+            string sqlQuery = "insert into Images (name,image)values(@a,@d)";
             SQLiteCommand cmd = new SQLiteCommand(sqlQuery, conn);
-            cmd.Parameters.AddWithValue("@a", "PlaceHolder");
-            cmd.Parameters.AddWithValue("@b", "PlaceHolder");
-            cmd.Parameters.AddWithValue("@c", "PlaceHolder");
+            cmd.Parameters.AddWithValue("@a", name);
             cmd.Parameters.AddWithValue("@d", ba);
             return cmd.ExecuteNonQuery();
             }
@@ -54,17 +52,17 @@ namespace BitmapToSqlite
             }
 
         }
-        public int SaveSoundRecord(byte[] ba,string key)
+        public int SaveSoundRecord(byte[] ba,string name)
         {
             try
             {
                 string cs = @"URI=file:d:\hottots.db";
                 SQLiteConnection conn = new SQLiteConnection(cs);
                 conn.Open();
-                string sqlQuery = "insert into Sounds (sound,key)values(@s,@k)";
+                string sqlQuery = "insert into Sounds (sound,name)values(@s,@n)";
                 SQLiteCommand cmd = new SQLiteCommand(sqlQuery, conn);
                 cmd.Parameters.AddWithValue("@s", ba);
-                cmd.Parameters.AddWithValue("@k", key);
+                cmd.Parameters.AddWithValue("@n", name);
                 return cmd.ExecuteNonQuery();
             }
             catch (Exception e)
@@ -74,15 +72,16 @@ namespace BitmapToSqlite
             }
 
         }
-        public byte[] getImage()
+        public byte[] getImage(string key)
         {
             try
             {
                 string cs = @"URI=file:d:\hottots.db";
                 SQLiteConnection conn = new SQLiteConnection(cs);
                 conn.Open();
-                string sqlQuery = "SELECT image FROM Images";
+                string sqlQuery = "SELECT image FROM Images where name = @n";
                 SQLiteCommand cmd = new SQLiteCommand(sqlQuery, conn);
+                cmd.Parameters.AddWithValue("@n", key);
                 SQLiteDataReader reader = cmd.ExecuteReader();
                 List<byte[]> records = new List<byte[]>();
                 while (reader.Read())
@@ -108,8 +107,9 @@ namespace BitmapToSqlite
                 string cs = @"URI=file:d:\hottots.db";
                 SQLiteConnection conn = new SQLiteConnection(cs);
                 conn.Open();
-                string sqlQuery = "SELECT sound FROM sounds where key = 'a' ";
+                string sqlQuery = "SELECT sound FROM sounds where name = @n ";
                 SQLiteCommand cmd = new SQLiteCommand(sqlQuery, conn);
+                cmd.Parameters.AddWithValue("@n", key);
                 SQLiteDataReader reader = cmd.ExecuteReader();
                 List<byte[]> records = new List<byte[]>();
                 while (reader.Read())
