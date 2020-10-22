@@ -72,7 +72,7 @@ namespace BitmapToSqlite
                 }
             if (mode == 'e') sqliteDb.UpdateImgSndRecord(img_arr1, snd_arr1, listBox1.SelectedItem.ToString());
             if (mode == 'd') sqliteDb.DeleteImgSndRecord(listBox1.SelectedItem.ToString());
-                //listBox1.DataSource = getKeys();
+                listBox1.DataSource = getKeys();
                 resetScreen();
                 resetVariables();
             }

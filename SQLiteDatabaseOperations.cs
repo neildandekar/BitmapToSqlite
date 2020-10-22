@@ -11,46 +11,40 @@ namespace BitmapToSqlite
 {
     class SQLiteDatabaseOperations
     {
+        private static SQLiteConnection conn;
         public SQLiteDatabaseOperations()
         {
-            try
-            {
-                string cs = @"URI=file:d:\hottots.db";
-                SQLiteConnection conn = new SQLiteConnection(cs);
-                conn.Open();
-                string sqlQuery = "SELECT * FROM thsNames";
-                SQLiteCommand cmd = new SQLiteCommand(sqlQuery, conn);                                
-                SQLiteDataReader reader = cmd.ExecuteReader();
-                List<String> records = new List<String>();
-                 while (reader.Read())
-                {
-                    records.Add(reader.GetInt32(0).ToString() + "-" + reader.GetString(1));
-                }
 
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+        }
+        public static SQLiteConnection getConnection()
+        {
+            string cs = @"URI=file:d:\hottots.db";
+            if (conn == null) conn = new SQLiteConnection(cs);
+            conn.Open();
+            return conn;
+
         }
         public int SaveImgSndRecord(byte[] bi, byte[]bs, string name)
         {
             try { 
-            string cs = @"URI=file:d:\hottots.db";
-            SQLiteConnection conn = new SQLiteConnection(cs);
-            conn.Open();
+
             string sqlQuery = "insert into ImgSnd (name,image,sound)values(@a,@i,@s)";
-            SQLiteCommand cmd = new SQLiteCommand(sqlQuery, conn);
+            SQLiteCommand cmd = new SQLiteCommand(sqlQuery, getConnection());
             cmd.Parameters.AddWithValue("@a", name);
             cmd.Parameters.AddWithValue("@i", bi);
                 cmd.Parameters.AddWithValue("@s", bs);
                 MessageBox.Show("Record successfully saved.");
-            return cmd.ExecuteNonQuery();
+                int i = cmd.ExecuteNonQuery();
+                return i;
             }
             catch(Exception e)
             {
                 MessageBox.Show(e.Message);
                 return -1;
+            }
+            finally
+            {
+               if (conn != null) conn.Close();
             }
 
         }
@@ -58,20 +52,22 @@ namespace BitmapToSqlite
         {
             try
             {
-                string cs = @"URI=file:d:\hottots.db";
-                SQLiteConnection conn = new SQLiteConnection(cs);
-                conn.Open();
                 string sqlQuery = "update ImgSnd set [image] = @i , [sound] = @s  where [name] = @n";
-                SQLiteCommand cmd = new SQLiteCommand(sqlQuery, conn);
+                SQLiteCommand cmd = new SQLiteCommand(sqlQuery, getConnection());
                 cmd.Parameters.AddWithValue("@n", name);
                 cmd.Parameters.AddWithValue("@i", bi);
                 cmd.Parameters.AddWithValue("@s", bs);
-                return cmd.ExecuteNonQuery();
+                int i = cmd.ExecuteNonQuery();
+                return i;
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
                 return -1;
+            }
+            finally
+            {
+                if (conn != null) conn.Close();
             }
 
         }
@@ -79,18 +75,19 @@ namespace BitmapToSqlite
         {
             try
             {
-                string cs = @"URI=file:d:\hottots.db";
-                SQLiteConnection conn = new SQLiteConnection(cs);
-                conn.Open();
-                string sqlQuery = "delete from ImgSnd where name = @n";
-                SQLiteCommand cmd = new SQLiteCommand(sqlQuery, conn);
-                cmd.Parameters.AddWithValue("@n", name);
-                return cmd.ExecuteNonQuery();
+                string sqlQuery = "delete from ImgSnd where name = '" + name + "'";
+                SQLiteCommand cmd = new SQLiteCommand(sqlQuery, getConnection());
+                int i = cmd.ExecuteNonQuery();
+                return i;
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
                 return -1;
+            }
+            finally
+            {
+                if (conn != null) conn.Close();
             }
 
         }
@@ -98,9 +95,6 @@ namespace BitmapToSqlite
         {
             try
             {
-                string cs = @"URI=file:d:\hottots.db";
-                SQLiteConnection conn = new SQLiteConnection(cs);
-                conn.Open();
                 string sqlQuery = "SELECT image FROM ImgSnd where name = @n";
                 SQLiteCommand cmd = new SQLiteCommand(sqlQuery, conn);
                 cmd.Parameters.AddWithValue("@n", key);
@@ -113,6 +107,7 @@ namespace BitmapToSqlite
                     records.Add(imageArray);
                     
                 }
+                conn.Close();
                 return records[0];
 
             }
@@ -127,16 +122,14 @@ namespace BitmapToSqlite
             List<string> retList = new List<string>();
             try
             {
-                string cs = @"URI=file:d:\hottots.db";
-                SQLiteConnection conn = new SQLiteConnection(cs);
-                conn.Open();
                 string sqlQuery = "SELECT distinct name FROM ImgSnd";
-                SQLiteCommand cmd = new SQLiteCommand(sqlQuery, conn);
+                SQLiteCommand cmd = new SQLiteCommand(sqlQuery, getConnection());
                 SQLiteDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     retList.Add(reader.GetString(0));
                 }
+                conn.Close();
                 return retList;
 
             }
@@ -150,11 +143,8 @@ namespace BitmapToSqlite
         {
          try
             {
-                string cs = @"URI=file:d:\hottots.db";
-                SQLiteConnection conn = new SQLiteConnection(cs);
-                conn.Open();
                 string sqlQuery = "SELECT sound FROM ImgSnd where name = @n ";
-                SQLiteCommand cmd = new SQLiteCommand(sqlQuery, conn);
+                SQLiteCommand cmd = new SQLiteCommand(sqlQuery, getConnection());
                 cmd.Parameters.AddWithValue("@n", key);
                 SQLiteDataReader reader = cmd.ExecuteReader();
                 List<byte[]> records = new List<byte[]>();
@@ -164,6 +154,7 @@ namespace BitmapToSqlite
                     reader.GetBytes(0, 0, soundArray, 0, 60000);
                     records.Add(soundArray);
                 }
+                conn.Close();
                 return records[0];
 
             }
