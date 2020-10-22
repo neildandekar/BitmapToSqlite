@@ -96,7 +96,7 @@ namespace BitmapToSqlite
             try
             {
                 string sqlQuery = "SELECT image FROM ImgSnd where name = @n";
-                SQLiteCommand cmd = new SQLiteCommand(sqlQuery, conn);
+                SQLiteCommand cmd = new SQLiteCommand(sqlQuery, getConnection());
                 cmd.Parameters.AddWithValue("@n", key);
                 SQLiteDataReader reader = cmd.ExecuteReader();
                 List<byte[]> records = new List<byte[]>();
@@ -107,7 +107,6 @@ namespace BitmapToSqlite
                     records.Add(imageArray);
                     
                 }
-                conn.Close();
                 return records[0];
 
             }
@@ -115,6 +114,10 @@ namespace BitmapToSqlite
             {
                 Console.WriteLine(e.Message);
                 return null;
+            }
+            finally
+            {
+                if (conn != null) conn.Close();
             }
         }
         public List<string> getKeys()
@@ -129,7 +132,6 @@ namespace BitmapToSqlite
                 {
                     retList.Add(reader.GetString(0));
                 }
-                conn.Close();
                 return retList;
 
             }
@@ -137,6 +139,10 @@ namespace BitmapToSqlite
             {
                 Console.WriteLine(e.Message);
                 return null;
+            }
+            finally
+            {
+                if (conn != null) conn.Close();
             }
         }
         public byte[] getSound(string key)
@@ -154,7 +160,6 @@ namespace BitmapToSqlite
                     reader.GetBytes(0, 0, soundArray, 0, 60000);
                     records.Add(soundArray);
                 }
-                conn.Close();
                 return records[0];
 
             }
@@ -163,6 +168,10 @@ namespace BitmapToSqlite
                 Console.WriteLine(e.Message);
                 return null;
             }
-}
+            finally
+            {
+                if (conn != null) conn.Close();
+            }
+        }
     }
 }
