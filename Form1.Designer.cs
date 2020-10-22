@@ -45,13 +45,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(122, 237);
+            this.label1.Location = new System.Drawing.Point(107, 241);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(51, 20);
             this.label1.TabIndex = 0;
@@ -60,7 +61,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(119, 291);
+            this.label4.Location = new System.Drawing.Point(104, 295);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(54, 20);
             this.label4.TabIndex = 3;
@@ -87,9 +88,9 @@
             this.button1.Enabled = false;
             this.button1.Location = new System.Drawing.Point(582, 291);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 36);
+            this.button1.Size = new System.Drawing.Size(170, 36);
             this.button1.TabIndex = 8;
-            this.button1.Text = "Browse";
+            this.button1.Text = "Browse Image File";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -106,7 +107,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(119, 428);
+            this.label5.Location = new System.Drawing.Point(104, 432);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(85, 20);
             this.label5.TabIndex = 10;
@@ -125,9 +126,9 @@
             this.button3.Enabled = false;
             this.button3.Location = new System.Drawing.Point(582, 421);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 42);
+            this.button3.Size = new System.Drawing.Size(170, 31);
             this.button3.TabIndex = 12;
-            this.button3.Text = "Browse";
+            this.button3.Text = "Browse Sound file";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click_1);
             // 
@@ -187,11 +188,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(123, 108);
+            this.label2.Location = new System.Drawing.Point(108, 112);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 20);
+            this.label2.Size = new System.Drawing.Size(148, 20);
             this.label2.TabIndex = 18;
-            this.label2.Text = "Select";
+            this.label2.Text = "Select Name to edit";
             // 
             // button7
             // 
@@ -214,11 +215,23 @@
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(478, 482);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(75, 37);
+            this.button9.TabIndex = 21;
+            this.button9.Text = "Exit";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1133, 531);
+            this.ClientSize = new System.Drawing.Size(1133, 563);
+            this.ControlBox = false;
+            this.Controls.Add(this.button9);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.label2);
@@ -263,5 +276,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button9;
     }
 }

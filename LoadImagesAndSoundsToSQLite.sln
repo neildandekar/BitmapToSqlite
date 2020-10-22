@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitmapToSqlite", "BitmapToSqlite.csproj", "{58F52049-C8D8-4D02-A4D5-475B77B9BFBA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadImagesAndSoundsToSQLite", "LoadImagesAndSoundsToSQLite.csproj", "{58F52049-C8D8-4D02-A4D5-475B77B9BFBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
