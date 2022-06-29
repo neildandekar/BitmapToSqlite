@@ -265,7 +265,7 @@
             this.buttongif.Name = "buttongif";
             this.buttongif.Size = new System.Drawing.Size(170, 31);
             this.buttongif.TabIndex = 25;
-            this.buttongif.Text = "Browse Sound file";
+            this.buttongif.Text = "Browse GIF file";
             this.buttongif.UseVisualStyleBackColor = true;
             this.buttongif.Click += new System.EventHandler(this.buttonGif_Click);
             // 
