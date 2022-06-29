@@ -274,7 +274,7 @@ namespace BitmapToSqlite
                 ms1.Seek(0, SeekOrigin.Begin);
                 System.Drawing.Image image = System.Drawing.Image.FromStream(ms1);
                 pictureBox1.Image = image;
-                    textBox4.Text = "Image file found. Choose another if needs edit";
+                textBox4.Text = "Image file found. Browse to change.";
                 }
                 else
                 {
@@ -288,7 +288,7 @@ namespace BitmapToSqlite
             {
                 SQLiteDatabaseOperations sdb = new SQLiteDatabaseOperations();
                 snd_arr1 = sdb.getSound(listBox1.SelectedItem.ToString());
-                textBox5.Text = "Sound File Found. Choose another for edit.";
+                textBox5.Text = "Sound File Found. Browse to change.";
             }
         }
         private void ArrayToGIF()
@@ -304,7 +304,7 @@ namespace BitmapToSqlite
                     ms1.Seek(0, SeekOrigin.Begin);
                     System.Drawing.Image image = System.Drawing.Image.FromStream(ms1);
                     pictureBox2.Image = image;
-                    textBoxgif.Text = "Gif file found. Choose another one for edit.";
+                    textBoxgif.Text = "Gif file found. Browse to change.";
                 }
                 else
                 {
