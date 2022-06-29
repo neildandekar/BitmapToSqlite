@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BitmapToSqlite
@@ -24,17 +20,24 @@ namespace BitmapToSqlite
             return conn;
 
         }
-        public int SaveImgSndRecord(byte[] bi, byte[]bs, string name)
+        public int SaveImgSndRecord(byte[] bi, byte[]bs, byte[] bg, string name)
         {
-            try { 
+            try {
+                if (bi.Length < 1 || bs.Length < 1)
+                {
 
-            string sqlQuery = "insert into ImgSnd (name,image,sound)values(@a,@i,@s)";
-            SQLiteCommand cmd = new SQLiteCommand(sqlQuery, getConnection());
-            cmd.Parameters.AddWithValue("@a", name);
-            cmd.Parameters.AddWithValue("@i", bi);
+                    MessageBox.Show("Image and/or Sound can not be empty. Record not saved.");
+                    return 0;
+                }
+
+                string sqlQuery = "insert into ImgSnd (name,image,sound,gif)values(@a,@i,@s,@g)";
+                SQLiteCommand cmd = new SQLiteCommand(sqlQuery, getConnection());
+                cmd.Parameters.AddWithValue("@a", name);
+                cmd.Parameters.AddWithValue("@i", bi);
                 cmd.Parameters.AddWithValue("@s", bs);
-                MessageBox.Show("Record successfully saved.");
+                cmd.Parameters.AddWithValue("@g", bg);                
                 int i = cmd.ExecuteNonQuery();
+                MessageBox.Show("Record successfully saved.");
                 return i;
             }
             catch(Exception e)
@@ -48,15 +51,23 @@ namespace BitmapToSqlite
             }
 
         }
-        public int UpdateImgSndRecord(byte[] bi, byte[] bs, string name)
+        public int UpdateImgSndRecord(byte[] bi, byte[] bs, byte[] bg, string name)
         {
             try
             {
-                string sqlQuery = "update ImgSnd set [image] = @i , [sound] = @s  where [name] = @n";
+                if (bi.Length < 1 || bs.Length < 1)
+                {
+
+                    MessageBox.Show("Image and/or Sound can not be empty. Record not saved.");
+                    return 0;
+                }
+
+                string sqlQuery = "update ImgSnd set [image] = @i , [sound] = @s, [gif] = @g where [name] = @n";
                 SQLiteCommand cmd = new SQLiteCommand(sqlQuery, getConnection());
                 cmd.Parameters.AddWithValue("@n", name);
                 cmd.Parameters.AddWithValue("@i", bi);
                 cmd.Parameters.AddWithValue("@s", bs);
+                cmd.Parameters.AddWithValue("@g", bg);
                 int i = cmd.ExecuteNonQuery();
                 return i;
             }
@@ -133,6 +144,34 @@ namespace BitmapToSqlite
                     retList.Add(reader.GetString(0));
                 }
                 return retList;
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+            finally
+            {
+                if (conn != null) conn.Close();
+            }
+        }
+        public byte[] getGif(string key)
+        {
+            try
+            {
+                string sqlQuery = "SELECT gif FROM ImgSnd where name = @n";
+                SQLiteCommand cmd = new SQLiteCommand(sqlQuery, getConnection());
+                cmd.Parameters.AddWithValue("@n", key);
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                List<byte[]> records = new List<byte[]>();
+                while (reader.Read())
+                {
+                    byte[] gifArray = new byte[25000];
+                    reader.GetBytes(0, 0, gifArray, 0, 25000);
+                    records.Add(gifArray);
+                }
+                return records[0];
 
             }
             catch (Exception e)

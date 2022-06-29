@@ -13,6 +13,7 @@ namespace BitmapToSqlite
         OpenFileDialog fd1 = new OpenFileDialog();
         private byte[] img_arr1;
         private byte[] snd_arr1;
+        private byte[] gif_arr1;
         public Form1()
         {
             InitializeComponent();
@@ -27,7 +28,7 @@ namespace BitmapToSqlite
             resetScreen();
         }
 
-
+        #region  Click and selection changed events
         private void button1_Click(object sender, EventArgs e)
         {
 
@@ -55,7 +56,6 @@ namespace BitmapToSqlite
             }
             return;
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             try 
@@ -68,9 +68,9 @@ namespace BitmapToSqlite
                         MessageBox.Show("Name can not be blank");
                         return;
                     }
-                    sqliteDb.SaveImgSndRecord(img_arr1, snd_arr1, textBox1.Text); 
+                    sqliteDb.SaveImgSndRecord(img_arr1, snd_arr1, gif_arr1, textBox1.Text); 
                 }
-            if (mode == 'e') sqliteDb.UpdateImgSndRecord(img_arr1, snd_arr1, listBox1.SelectedItem.ToString());
+            if (mode == 'e') sqliteDb.UpdateImgSndRecord(img_arr1, snd_arr1,gif_arr1, listBox1.SelectedItem.ToString());
             if (mode == 'd') sqliteDb.DeleteImgSndRecord(listBox1.SelectedItem.ToString());
                 listBox1.DataSource = getKeys();
                 resetScreen();
@@ -83,7 +83,6 @@ namespace BitmapToSqlite
                 resetVariables();
             }
         }
-
         private void button3_Click_1(object sender, EventArgs e)
         {
             
@@ -93,7 +92,7 @@ namespace BitmapToSqlite
                 return;
             if (dres2 == DialogResult.Cancel)
                 return;
-            textBox5.Text = fd2.FileName;
+            textBoxgif.Text = fd2.FileName;
             SoundToArray();
             if (snd_arr1.Length > 25000)
             {
@@ -104,7 +103,6 @@ namespace BitmapToSqlite
             button7.Enabled = true;
 
         }
-
         private void button4_Click(object sender, EventArgs e)
         {
             mode = 'a';
@@ -112,25 +110,28 @@ namespace BitmapToSqlite
             textBox1.Enabled = true;
             textBox1.Enabled = true;
             textBox4.Enabled = true;
-            textBox5.Enabled = true;
+            textBoxgif.Enabled = true;
+            textBoxgif.Enabled = true;
             listBox1.Enabled = false;
             button1.Enabled = true;
             button2.Enabled = true;
+            button3.Enabled = true;
             button3.Enabled = true;
             button4.Enabled = false;
             button5.Enabled = false;
             button6.Enabled = false;
             button8.Enabled = true;
+            buttongif.Enabled = true;
 
             //SoundToArray();
         }
-
         private void button5_Click(object sender, EventArgs e)
         {
             mode = 'e';
             textBox1.ReadOnly = true;
             textBox4.Enabled = true;
-            textBox5.Enabled = true;
+            textBoxgif.Enabled = true;
+            textBoxgif.Enabled = true;
             listBox1.Enabled = true;
             button1.Enabled = true;
             button2.Enabled = true;
@@ -138,37 +139,107 @@ namespace BitmapToSqlite
             button4.Enabled = false;
             button5.Enabled = false;
             button6.Enabled = false;
+            button3.Enabled = true;
             button8.Enabled = true;
+            buttongif.Enabled= true;
             ArrayToImage();
         }
-
         private void button6_Click(object sender, EventArgs e)
         {
             mode = 'd';
             textBox1.ReadOnly = false;
             textBox4.Enabled = false;
-            textBox5.Enabled = false;
+            textBoxgif.Enabled = false;
+            textBoxgif.Enabled = false;
             button2.Enabled = true;
             button4.Enabled = false;
             button5.Enabled = false;
             button6.Enabled = false;
+            button3.Enabled = false;
             button8.Enabled = true;
             listBox1.Enabled = true;
         }
+        private void buttonGif_Click (object sender, EventArgs e)
+        {
+            fd1.Filter = "image files|*.gif";
+            DialogResult dres2 = fd1.ShowDialog();
+            if (dres2 == DialogResult.Abort)
+                return;
+            if (dres2 == DialogResult.Cancel)
+                return;
+            try
+            {
+                textBoxgif.Text = fd1.FileName;
+                pictureBox2.Image = Image.FromFile(textBoxgif.Text);
+                ImageToArray();
+                if (img_arr1.Length > 35000)
+                {
+                    MessageBox.Show("Please upload gifs less than 25 kb.");
+                    return;
+                }
+                textBoxgif.Text = fd1.FileName;
+                GifToArray();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return;
+
+        }
+        private void button7_Click(object sender, EventArgs e)
+        {
+            playSoundFile();
+        }
+        private void button8_Click(object sender, EventArgs e)
+        {
+            resetScreen();
+            resetVariables();
+        }
+        private void button9_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItem != null && listBox1.SelectedItem.ToString().Length > 0)
+            {
+                pictureBox1.Image = null;
+                pictureBox2.Image = null;
+                ArrayToImage();
+                ArrayToSound();
+                ArrayToGIF();
+                SoundArrayToFile();
+            }
+
+        }
+        #endregion
+        #region Conversion from Images and Sounds to Byte Array
         private void ImageToArray()
         {
                 Image img = pictureBox1.Image;
+                Bitmap bitmap = (Bitmap)img;
                 using (MemoryStream ms = new MemoryStream())
                 {
-                    img.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                     img_arr1 = ms.ToArray();
                 }
 
         }
+        private void GifToArray()
+        {
+            Image img = pictureBox2.Image;
+            Bitmap bitmap = (Bitmap)img;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                gif_arr1 = ms.ToArray();
+            }
+        }
         private void SoundToArray()
         {
                 using (MemoryStream ms = new MemoryStream())
-                using (FileStream file = new FileStream(textBox5.Text, FileMode.Open, FileAccess.Read))
+                using (FileStream file = new FileStream(textBoxgif.Text, FileMode.Open, FileAccess.Read))
                 {
                     byte[] bytes = new byte[file.Length];
                     file.Read(bytes, 0, (int)file.Length);
@@ -177,6 +248,8 @@ namespace BitmapToSqlite
                 }
 
         }
+        #endregion
+        #region Conversion from Array to Images and Sound
         private void ArrayToImage()
         {
             if (listBox1.SelectedItem != null && listBox1.SelectedItem.ToString().Length > 0)
@@ -205,6 +278,16 @@ namespace BitmapToSqlite
                 snd_arr1 = sdb.getSound(listBox1.SelectedItem.ToString());
             }
         }
+        private void ArrayToGIF()
+        {
+            if (listBox1.SelectedItem.ToString().Length > 0)
+            {
+                SQLiteDatabaseOperations sdb = new SQLiteDatabaseOperations();
+                gif_arr1 = sdb.getGif(listBox1.SelectedItem.ToString());
+            }
+        }
+        #endregion
+        #region Miscellaneous functions
         private void SoundArrayToFile()
         {
             if (snd_arr1 != null)
@@ -223,21 +306,18 @@ namespace BitmapToSqlite
             SQLiteDatabaseOperations sqlop = new SQLiteDatabaseOperations();
             return sqlop.getKeys();
 
-        }
-        private void button7_Click(object sender, EventArgs e)
-        {
-            playSoundFile();    
-        }
+        }       
         private void resetScreen()
         {
             listBox1.Enabled = false;
             textBox1.Enabled = false; textBox1.Text = "";
             textBox4.Enabled = false; textBox4.Text = "";
-            textBox5.Enabled = false; textBox5.Text = "";
+            textBoxgif.Enabled = false; textBoxgif.Text = "";
             pictureBox1.Image = null;
             button1.Enabled = false;
             button2.Enabled = false;
             button3.Enabled = false;
+            buttongif.Enabled = false;
             button4.Enabled = true;
             button5.Enabled = true;
             button6.Enabled = true;
@@ -249,33 +329,21 @@ namespace BitmapToSqlite
         {
             snd_arr1 = null;
             img_arr1 = null;
+            gif_arr1 = null;
             mode = ' ';
         }
+        #endregion
 
-        private void button8_Click(object sender, EventArgs e)
-        {
-            resetScreen();
-            resetVariables();
-        }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (listBox1.SelectedItem != null &&  listBox1.SelectedItem.ToString().Length > 0)
-            {
-                pictureBox1.Image = null;
-                ArrayToImage();
-                ArrayToSound();
-                SoundArrayToFile();
-            }
-           
-        }
+
+
         private void playSoundFile()
         {
             WMPLib.WindowsMediaPlayer Player = new WMPLib.WindowsMediaPlayer();
 
-            if ( File.Exists(textBox5.Text.ToString()))
+            if ( File.Exists(textBoxgif.Text.ToString()))
             {
-                Player.URL = textBox5.Text.ToString();
+                Player.URL = textBoxgif.Text.ToString();
                 Player.controls.play();
             }
             else if (snd_arr1 == null)
@@ -301,9 +369,8 @@ namespace BitmapToSqlite
             GC.Collect();
         }
 
-        private void button9_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
+
+
+
     }
 }
