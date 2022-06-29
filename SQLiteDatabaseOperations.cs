@@ -55,7 +55,7 @@ namespace BitmapToSqlite
         {
             try
             {
-                if (bi.Length < 1 || bs.Length < 1)
+                if (bi.Length < 1 || bs.Length < 1 )
                 {
 
                     MessageBox.Show("Image and/or Sound can not be empty. Record not saved.");
@@ -68,8 +68,8 @@ namespace BitmapToSqlite
                 cmd.Parameters.AddWithValue("@i", bi);
                 cmd.Parameters.AddWithValue("@s", bs);
                 cmd.Parameters.AddWithValue("@g", bg);
-                int i = cmd.ExecuteNonQuery();
-                return i;
+                cmd.ExecuteNonQuery();
+                return 1;
             }
             catch (Exception e)
             {

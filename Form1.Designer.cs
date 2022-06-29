@@ -35,7 +35,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBoxgif = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
@@ -46,7 +46,7 @@
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBoxgif = new System.Windows.Forms.TextBox();
             this.labelgif = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.buttongif = new System.Windows.Forms.Button();
@@ -118,13 +118,13 @@
             this.label5.TabIndex = 10;
             this.label5.Text = "Sound File";
             // 
-            // textBoxgif
+            // textBox5
             // 
-            this.textBoxgif.Location = new System.Drawing.Point(273, 356);
-            this.textBoxgif.Name = "textBoxgif";
-            this.textBoxgif.ReadOnly = true;
-            this.textBoxgif.Size = new System.Drawing.Size(303, 26);
-            this.textBoxgif.TabIndex = 11;
+            this.textBox5.Location = new System.Drawing.Point(273, 356);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.ReadOnly = true;
+            this.textBox5.Size = new System.Drawing.Size(303, 26);
+            this.textBox5.TabIndex = 11;
             // 
             // button4
             // 
@@ -230,13 +230,13 @@
             this.pictureBox2.TabIndex = 22;
             this.pictureBox2.TabStop = false;
             // 
-            // textBox2
+            // textBoxgif
             // 
-            this.textBox2.Location = new System.Drawing.Point(273, 418);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(303, 26);
-            this.textBox2.TabIndex = 24;
+            this.textBoxgif.Location = new System.Drawing.Point(273, 418);
+            this.textBoxgif.Name = "textBoxgif";
+            this.textBoxgif.ReadOnly = true;
+            this.textBoxgif.Size = new System.Drawing.Size(303, 26);
+            this.textBoxgif.TabIndex = 24;
             // 
             // labelgif
             // 
@@ -276,7 +276,7 @@
             this.ClientSize = new System.Drawing.Size(1133, 651);
             this.ControlBox = false;
             this.Controls.Add(this.buttongif);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBoxgif);
             this.Controls.Add(this.labelgif);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.button9);
@@ -289,7 +289,7 @@
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.textBoxgif);
+            this.Controls.Add(this.textBox5);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -315,7 +315,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBoxgif;
+        private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
@@ -326,7 +326,7 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBoxgif;
         private System.Windows.Forms.Label labelgif;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button buttongif;
