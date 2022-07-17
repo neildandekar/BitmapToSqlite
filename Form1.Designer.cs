@@ -45,13 +45,8 @@
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.textBoxgif = new System.Windows.Forms.TextBox();
-            this.labelgif = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
-            this.buttongif = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -219,34 +214,6 @@
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox2.Location = new System.Drawing.Point(864, 454);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(171, 153);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 22;
-            this.pictureBox2.TabStop = false;
-            // 
-            // textBoxgif
-            // 
-            this.textBoxgif.Location = new System.Drawing.Point(273, 418);
-            this.textBoxgif.Name = "textBoxgif";
-            this.textBoxgif.ReadOnly = true;
-            this.textBoxgif.Size = new System.Drawing.Size(303, 26);
-            this.textBoxgif.TabIndex = 24;
-            // 
-            // labelgif
-            // 
-            this.labelgif.AutoSize = true;
-            this.labelgif.Location = new System.Drawing.Point(104, 425);
-            this.labelgif.Name = "labelgif";
-            this.labelgif.Size = new System.Drawing.Size(66, 20);
-            this.labelgif.TabIndex = 23;
-            this.labelgif.Text = "GIF File";
-            // 
             // button3
             // 
             this.button3.Enabled = false;
@@ -258,27 +225,12 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click_1);
             // 
-            // buttongif
-            // 
-            this.buttongif.Enabled = false;
-            this.buttongif.Location = new System.Drawing.Point(582, 416);
-            this.buttongif.Name = "buttongif";
-            this.buttongif.Size = new System.Drawing.Size(170, 31);
-            this.buttongif.TabIndex = 25;
-            this.buttongif.Text = "Browse GIF file";
-            this.buttongif.UseVisualStyleBackColor = true;
-            this.buttongif.Click += new System.EventHandler(this.buttonGif_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1133, 651);
             this.ControlBox = false;
-            this.Controls.Add(this.buttongif);
-            this.Controls.Add(this.textBoxgif);
-            this.Controls.Add(this.labelgif);
-            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
@@ -300,7 +252,6 @@
             this.Name = "Form1";
             this.Text = "Images and Sounds to SQLite";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -325,10 +276,6 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.TextBox textBoxgif;
-        private System.Windows.Forms.Label labelgif;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button buttongif;
     }
 }

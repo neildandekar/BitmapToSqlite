@@ -20,7 +20,7 @@ namespace BitmapToSqlite
             return conn;
 
         }
-        public int SaveImgSndRecord(byte[] bi, byte[]bs, byte[] bg, string name)
+        public int SaveImgSndRecord(byte[] bi, byte[]bs,  string name)
         {
             try {
                 if (bi.Length < 1 || bs.Length < 1)
@@ -30,12 +30,12 @@ namespace BitmapToSqlite
                     return 0;
                 }
 
-                string sqlQuery = "insert into ImgSnd (name,image,sound,gif)values(@a,@i,@s,@g)";
+                string sqlQuery = "insert into ImgSnd (name,image,sound)values(@a,@i,@s)";
                 SQLiteCommand cmd = new SQLiteCommand(sqlQuery, getConnection());
                 cmd.Parameters.AddWithValue("@a", name);
                 cmd.Parameters.AddWithValue("@i", bi);
                 cmd.Parameters.AddWithValue("@s", bs);
-                cmd.Parameters.AddWithValue("@g", bg);                
+             
                 int i = cmd.ExecuteNonQuery();
                 MessageBox.Show("Record successfully saved.");
                 return i;
@@ -51,7 +51,7 @@ namespace BitmapToSqlite
             }
 
         }
-        public int UpdateImgSndRecord(byte[] bi, byte[] bs, byte[] bg, string name)
+        public int UpdateImgSndRecord(byte[] bi, byte[] bs,  string name)
         {
             try
             {
@@ -62,12 +62,11 @@ namespace BitmapToSqlite
                     return 0;
                 }
 
-                string sqlQuery = "update ImgSnd set [image] = @i , [sound] = @s, [gif] = @g where [name] = @n";
+                string sqlQuery = "update ImgSnd set [image] = @i , [sound] = @s where [name] = @n";
                 SQLiteCommand cmd = new SQLiteCommand(sqlQuery, getConnection());
                 cmd.Parameters.AddWithValue("@n", name);
                 cmd.Parameters.AddWithValue("@i", bi);
                 cmd.Parameters.AddWithValue("@s", bs);
-                cmd.Parameters.AddWithValue("@g", bg);
                 cmd.ExecuteNonQuery();
                 return 1;
             }
@@ -144,34 +143,6 @@ namespace BitmapToSqlite
                     retList.Add(reader.GetString(0));
                 }
                 return retList;
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return null;
-            }
-            finally
-            {
-                if (conn != null) conn.Close();
-            }
-        }
-        public byte[] getGif(string key)
-        {
-            try
-            {
-                string sqlQuery = "SELECT gif FROM ImgSnd where name = @n";
-                SQLiteCommand cmd = new SQLiteCommand(sqlQuery, getConnection());
-                cmd.Parameters.AddWithValue("@n", key);
-                SQLiteDataReader reader = cmd.ExecuteReader();
-                List<byte[]> records = new List<byte[]>();
-                while (reader.Read())
-                {
-                    byte[] gifArray = new byte[25000];
-                    reader.GetBytes(0, 0, gifArray, 0, 25000);
-                    records.Add(gifArray);
-                }
-                return records[0];
 
             }
             catch (Exception e)
