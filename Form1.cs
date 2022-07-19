@@ -28,7 +28,7 @@ namespace BitmapToSqlite
         }
 
         #region  Click and selection changed events
-        private void button1_Click(object sender, EventArgs e)
+        private void onBrowseImageClicked (object sender, EventArgs e)
         {
 
             fd1.Filter = "image files|*.jpg;*.png;.*gif;*.icon;.*;";
@@ -55,7 +55,7 @@ namespace BitmapToSqlite
             }
             return;
         }
-        private void button2_Click(object sender, EventArgs e)
+        private void onOkClicked (object sender, EventArgs e)
         {
             try 
             { 
@@ -83,7 +83,7 @@ namespace BitmapToSqlite
                 resetVariables();
             }
         }
-        private void button3_Click_1(object sender, EventArgs e)
+        private void onBrowseSoundClicked (object sender, EventArgs e)
         {
             
             fd2.Filter = "sound files|*.mp3;";
@@ -103,7 +103,7 @@ namespace BitmapToSqlite
             button7.Enabled = true;
 
         }
-        private void button4_Click(object sender, EventArgs e)
+        private void onNewClick (object sender, EventArgs e)
         {
             mode = 'a';
             textBox1.ReadOnly = false;
@@ -125,7 +125,7 @@ namespace BitmapToSqlite
             textBox5.Text = "Select a file.";
             //SoundToArray();
         }
-        private void button5_Click(object sender, EventArgs e)
+        private void onEditClick (object sender, EventArgs e)
         {
             mode = 'e';
             textBox1.ReadOnly = true;
@@ -146,7 +146,7 @@ namespace BitmapToSqlite
             ArrayToImage();
             ArrayToSound();
         }
-        private void button6_Click(object sender, EventArgs e)
+        private void onDeleteClick (object sender, EventArgs e)
         {
             mode = 'd';
             textBox1.ReadOnly = false;
@@ -161,16 +161,16 @@ namespace BitmapToSqlite
             button8.Enabled = true;
             listBox1.Enabled = true;
         }
-        private void button7_Click(object sender, EventArgs e)
+        private void onPlaySoundClicked(object sender, EventArgs e)
         {
             playSoundFile();
         }
-        private void button8_Click(object sender, EventArgs e)
+        private void onCancelClick (object sender, EventArgs e)
         {
             resetScreen();
             resetVariables();
         }
-        private void button9_Click(object sender, EventArgs e)
+        private void onExitClick(object sender, EventArgs e)
         {
             Application.Exit();
         }
@@ -181,10 +181,8 @@ namespace BitmapToSqlite
                 pictureBox1.Image = null;
                 ArrayToImage();
                 ArrayToSound();
-                SoundArrayToFile();               
-
+                SoundArrayToFile();   
             }
-
         }
         #endregion
         #region Conversion from Images and Sounds to Byte Array
